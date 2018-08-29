@@ -1,0 +1,18 @@
+version: '3'
+
+
+
+services: 
+  app:
+    build: .
+    container_name: app-connector
+    command: npm run dev
+    ports: 
+      - 3000:3000
+    volumes: 
+      - .:/usr/src/app
+      - nodemodules:/usr/src/app/node_modules
+
+
+volumes:
+  nodemodules:
