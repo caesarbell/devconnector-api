@@ -106,7 +106,10 @@ router.get('/test', (req, res) => res.json({msg: 'Users works'}));
         .findOne({ email })
         .then(user => {
 
-            !user ? res.status(404).json(errors.email = 'User not found') : null; 
+            if(!user) {
+                errors.email = 'User not found'; 
+                res.status(404).json(errors);
+            }
 
             bcrypt
                 .compare(password, user.password)
@@ -114,8 +117,13 @@ router.get('/test', (req, res) => res.json({msg: 'Users works'}));
 
                     const payload = {id: user.id, name: user.name, avatar: user.avatar}; 
 
-                    isMatch ? getUserWebToken(res, payload) : 
-                    res.status(400).json(errors.password = 'Password incorrect'); 
+                    if(!isMatch) {
+                        errors.password = 'Password incorrect';
+                        res.status(400).json(errors);
+                    }
+
+                    getUserWebToken(res, payload);
+                     
                 });
         })
 

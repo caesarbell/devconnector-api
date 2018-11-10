@@ -151,7 +151,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
     /**
      * Checking if fields are available 
      */
-    const fieldTypes = ['handle', 'company', 'status', 'website', 'location']; 
+    const fieldTypes = ['handle', 'company', 'status', 'website', 'location', 'githubusername', 'bio']; 
      fieldTypes.forEach(field_type => {
          if(req.body[field_type]) profileFields[field_type] = req.body[field_type]; 
      }); 
@@ -169,7 +169,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
        */
 
        profileFields.social = {};
-       const soicalPlatforms = ['youtube', 'facebook', 'instaggram', 'linkedin', 'twitter']; 
+       const soicalPlatforms = ['youtube', 'facebook', 'instagram', 'linkedin', 'twitter']; 
 
        soicalPlatforms.forEach(platform => {
            if(req.body[platform]) profileFields.social[platform] = req.body[platform]; 
@@ -359,8 +359,6 @@ router.delete('/education/:edu_id', passport.authenticate('jwt', { session: fals
                 .map(item => item.id)
                 .indexOf(req.params.edu_id);
 
-                console.log('remove index',removeIndex);
-
 
             /**
              * Splice out of array
@@ -381,7 +379,7 @@ router.delete('/education/:edu_id', passport.authenticate('jwt', { session: fals
  * @access Private 
  */
 
-router.delete('/profile', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.delete('/', passport.authenticate('jwt', { session: false }), (req, res) => {
 
    Profile.findOneAndRemove({ user: req.user.id })
     .then(() => {
