@@ -107,7 +107,7 @@ const Schema = mongoose.Schema;
          twitter: {
              type: String
          },
-         linkedIn: {
+         linkedin: {
              type: String
          },
          instagram: {

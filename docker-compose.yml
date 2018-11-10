@@ -4,11 +4,11 @@ version: '3'
 services: 
   app:
     build: .
-    container_name: app-connector
+    container_name: devconnector-api
     command: npm run dev
     env_file: .env
     ports: 
-      - 3000:3000
+      - 5000:5000
     volumes: 
       - .:/usr/src/app
       - nodemodules:/usr/src/app/node_modules
