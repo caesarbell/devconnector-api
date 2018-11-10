@@ -1,5 +1,6 @@
 const Validator = require('validator');
 const isEmpty = require('./is-empty');
+const { startCase } = require('lodash');
 
 module.exports = function validateProfileInput(data) {
     let errors = {};
@@ -28,7 +29,7 @@ module.exports = function validateProfileInput(data) {
 
      fields.forEach(field => {
          if(Validator.isEmpty(data[field])) {
-             errors[field] = `${field} is required`; 
+             errors[field] = `${startCase(field)} is required`; 
          }
      });
 
@@ -42,7 +43,9 @@ module.exports = function validateProfileInput(data) {
 
      platforms.forEach(platform => {
          if(!isEmpty(data[platform])) {
-             errors[platform] = 'Not a valid url'; 
+             if(!Validator.isURL(data[platform])) {
+                 errors[platform] = 'Not a valid url'; 
+             }
          }
      });
 

@@ -132,7 +132,6 @@ router.delete('/:id', passport.authenticate('jwt', { session: false}), (req, res
 router.post('/like/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
     Profile.findOne({ user: req.user.id })
         .then(() => {
-            console.log('post id', req.params.id);
             Post.findById(req.params.id)
                 .then(post => {
                     /**
@@ -201,10 +200,9 @@ router.post('/unlike/:id', passport.authenticate('jwt', { session: false }), (re
                         .map(item => item.user.toString())
                         .indexOf(req.user.id); 
 
-                    const removedlike = post.likes.map(like =>  like.user.toString() !== req.user.id );
 
-
-                    post.likes = removedlike; 
+                    post.likes.splice(removeIndex, 1);
+                
 
                     /**
                      * Save updated post
