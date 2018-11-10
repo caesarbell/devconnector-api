@@ -12,5 +12,5 @@ const mongoPassword = process.env.MONGO_PASSWORD;
 
 module.exports = {
     mongoURI: `mongodb://${mongoUser}:${mongoPassword}@ds133601.mlab.com:33601/${mongoDb}`,
-    secretOrKey: 'secret'
+    secretOrKey: process.env.SECRET_OR_KEY
 };
