@@ -1,5 +1,6 @@
 const Validator = require('validator');
 const isEmpty = require('./is-empty');
+const { startCase } = require('lodash');
 
 module.exports = function validateLoginInput(data) {
     let errors = {};
@@ -27,7 +28,7 @@ module.exports = function validateLoginInput(data) {
     const validator = (value) => {
         const field = value;
 
-        Validator.isEmpty(data[field]) ? errors[field] = `${field} field is require` : null;
+        Validator.isEmpty(data[field]) ? errors[field] = `${startCase(field) } field is require` : null;
     }
 
     fields.forEach((field) => {
