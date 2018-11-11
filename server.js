@@ -22,8 +22,16 @@ const db = require('./config/keys').mongoURI;
  * Provides which domains can speak with the API from the browser 
  */
 
+const whitelist = ['http://localhost:3000', 'https://festive-aryabhata-e098d1.netlify.com']; 
+
 var corsOptions = {
-    origin: process.env.CORS_URL,
+    origin: (origin, callback) => {
+        if(whitelist.indexOf(origin) !== -1) {
+            callback(null, true); 
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    },
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
